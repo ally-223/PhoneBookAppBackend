@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 
+const path = require('path'); // Add this line
+
 let notes = [
   { 
     "id": "1",
@@ -30,6 +32,9 @@ let notes = [
 app.use(express.json());
 app.use(morgan('combined'));
 app.use(cors());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'dist'))); // Add this line
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>');
@@ -92,6 +97,11 @@ app.get('/info', (request, response) => {
     `<p>Phonebook has info for ${numberOfPeople} people</p>
     <p>${requestTime}</p>`
   );
+});
+
+// Catch-all handler for all other routes to serve the React app
+app.get('*', (request, response) => {
+  response.sendFile(path.join(__dirname, 'dist', 'index.html')); // Add this line
 });
 
 //const PORT = 3001;
