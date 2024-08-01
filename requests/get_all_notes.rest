@@ -1,0 +1,15 @@
+http://localhost:3001/api/notes/
+
+####
+
+DELETE http://localhost:3001/api/notes/5
+
+####
+
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+  "name": "Sam Winchester",
+  "number": "123-1111"
+}
